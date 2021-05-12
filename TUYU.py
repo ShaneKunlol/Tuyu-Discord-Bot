@@ -47,7 +47,7 @@ async def Rule(ctx,*,number):
 @commands.has_permissions(manage_messages = True)
 async def Clear(ctx,amount=2):
     await ctx.channel.purge(limit = amount)
-    await ctx.send("ヾ(≧▽≦*)o Successfully removed"+ amount +"messages")
+    await ctx.send("ヾ(≧▽≦*)o Successfully removed"+amount+"messages")
     
 @client.command()
 @commands.has_permissions(kick_members = True)

@@ -120,9 +120,5 @@ async def Warn(ctx,member: discord.Member,*,reason= "No reason provided"):
 async def Pat(ctx):
     await ctx.send("https://tenor.com/view/anime-head-pat-anime-head-rub-neko-anime-love-anime-gif-16121044")
     await ctx.send("Nya~! Thx master")
-
-@client.command()
-async def ping(ctx):
-    await ctx.send(f"There u go ╰(￣ω￣ｏ) {round(client.latency = 1000))ms")
     
 client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.fD2TUtztXzfultFyKeMuJwJJdGY")

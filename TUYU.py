@@ -9,7 +9,7 @@ rules = f.readlines()
 
 filtered_words = ["Cunt","Nigger","Fuck","Bitch","Asshole","Motherfucker","cunt","nigger","fuck","bitch","asshole","motherfucker"]
 
-client = commands.Bot(command_prefix="Nya~")
+client = commands.Bot(command_prefix="~")
 
 @client.event
 async def on_ready():
@@ -47,7 +47,7 @@ async def Rule(ctx,*,number):
 @commands.has_permissions(manage_messages = True)
 async def Clear(ctx,amount=2):
     await ctx.channel.purge(limit = amount)
-    await ctx.send("ヾ(≧▽≦*)o Successfully removed"+amount+"messages")
+    await ctx.send("ヾ(≧▽≦*)o Successfully removed")
     
 @client.command()
 @commands.has_permissions(kick_members = True)

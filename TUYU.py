@@ -7,6 +7,16 @@ import random
 f = open("Rules.txt","r")
 rules = f.readlines()
 
+gifs = ['https://tenor.com/view/pat-head-loli-dragon-anime-gif-9920853',
+'https://tenor.com/view/neko-anime-girl-cute-kawaii-touch-face-gif-14809730',
+'https://tenor.com/view/anime-head-pat-pat-very-good-good-girl-gif-17187002',
+'https://tenor.com/view/pet-cute-anime-head-pat-good-job-gif-16919214',
+'https://tenor.com/view/anime-head-pat-anime-head-rub-neko-anime-love-anime-gif-16121044',
+'https://tenor.com/view/pat-head-gif-10947495',
+'https://tenor.com/view/anime-pat-head-blushing-happy-gif-13327143',
+'https://tenor.com/view/behave-anime-head-pats-head-pat-gif-15882394',
+]
+
 filtered_words = ["Cunt","Nigger","Fuck","Bitch","Asshole","Motherfucker","cunt","nigger","fuck","bitch","asshole","motherfucker"]
 
 client = commands.Bot(command_prefix="~")
@@ -42,6 +52,7 @@ async def TUYU(ctx):
 @client.command()
 async def Rule(ctx,*,number):
     await ctx.send(rules[int(number)-1])
+    await ctx.send("Read carefully :p")
 
 @client.command()
 @commands.has_permissions(manage_messages = True)
@@ -71,15 +82,19 @@ async def Ban(ctx,member: discord.Member,*,reason= "No reason provided"):
 @commands.has_permissions(ban_members=True)
 async def Unban(ctx,*,member):
     banned_users = await ctx.guild.bans()
+
     member_name, member_disc = member.split('#')
 
     for banned_entry in banned_users:
+
         user = banned_entry.user
 
         if(user.name, user.discriminator)==(member_name,member_disc):
 
             await ctx.guild.unban(user)
-            await ctx.send("nya~" + member_name +" has been unbanned! (～o￣3￣)～")
+
+            await ctx.send(member_name +" has been unbanned! (～o￣3￣)～")
+
             return
     await ctx.send(member+" was not found 〒▽〒")
 
@@ -105,20 +120,27 @@ async def Unmute(ctx,member : discord.Member):
 @commands.has_permissions(kick_members=True)
 async def Info(ctx, member : discord.Member):
     embed = discord.Embed(title = member.name , description = member.mention , color = discord.Color.blue())
+
     embed.add_field(name = "ID", value = member.id , inline = True)
+
     embed.set_thumbnail(url = member.avatar_url)
+
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
+
     await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_permissions(kick_members = True)
 async def Warn(ctx,member: discord.Member,*,reason= "No reason provided"):
-    await member.send("￣へ￣ have been warned,Because "+reason)
+    await member.send("￣へ￣ You have been warned,Because "+reason)
     await ctx.send(member.mention + " has been warned. =￣ω￣=")
 
 @client.command()
 async def Pat(ctx):
-    await ctx.send("https://tenor.com/view/anime-head-pat-anime-head-rub-neko-anime-love-anime-gif-16121044")
-    await ctx.send("Nya~! Thx master")
-    
+    random_link = random.choice(gifs)
+
+    await ctx.send(random_link)
+
+    await ctx.send("Nya~ Thx master")
+
 client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.fD2TUtztXzfultFyKeMuJwJJdGY")

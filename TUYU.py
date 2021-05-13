@@ -143,4 +143,96 @@ async def Pat(ctx):
 
     await ctx.send("Nya~ Thx master")
 
+@client.group(invoke_without_command = True)
+async def Help(ctx):
+    em = discord.Embed(title = "Help", description = "Use ~Help <command> for extended Info about that command")
+
+    em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info")
+    em.add_field(name = "Fun", value = "Pat")
+
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Kick(ctx):
+
+    em = discord.Embed(title = "Kick", description = "Kicks a member from the server",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~kick <member> [reason]")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Ban(ctx):
+
+    em = discord.Embed(title = "Ban", description = "Bans a member from the server",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~ban <member> [reason]")
+
+    await ctx.send(embed = em)
+    
+@Help.command()
+async def Unban(ctx):
+
+    em = discord.Embed(title = "Unban", description = "Unbans a member from the server",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~kick <member>")
+
+    await ctx.send(embed = em)
+    
+@Help.command()
+async def Warn(ctx):
+
+    em = discord.Embed(title = "Warn", description = "Warns a member and sends a Message in thier dms",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Warn <member> [reason]")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Mute(ctx):
+
+    em = discord.Embed(title = "Mute", description = "Mutes a member in the server",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Mute <member>")
+
+    await ctx.send(embed = em)
+
+
+@Help.command()
+async def Unmute(ctx):
+
+    em = discord.Embed(title = "Unmute", description = "Unmutes a member in the server",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Unmute <member>")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Clear(ctx):
+
+    em = discord.Embed(title = "Clear", description = "Clears a specified number of messages (It will clear 2 messages if no amount is given)",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Clear <amount>")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Info(ctx):
+
+    em = discord.Embed(title = "Info", description = "Gives some necessary info about a user",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Info <member>")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Pat(ctx):
+
+    em = discord.Embed(title = "Pat", description = "No one likes working without headpats :p",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Pat")
+
+    await ctx.send(embed = em)
+  
 client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.fD2TUtztXzfultFyKeMuJwJJdGY")

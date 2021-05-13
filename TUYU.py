@@ -1,8 +1,11 @@
 import discord
+from discord import embeds
+from discord.colour import Color
 from discord.ext import commands
 import datetime
 import asyncio 
 import random
+import json
 
 f = open("Rules.txt","r")
 rules = f.readlines()
@@ -19,12 +22,14 @@ gifs = ['https://tenor.com/view/pat-head-loli-dragon-anime-gif-9920853',
 
 filtered_words = ["Cunt","Nigger","Fuck","Bitch","Asshole","Motherfucker","cunt","nigger","fuck","bitch","asshole","motherfucker"]
 
-client = commands.Bot(command_prefix="~")
+client = commands.Bot(command_prefix= "~")
+client.remove_command("help")
 
 @client.event
 async def on_ready():
     print("Bot Is Online")
 
+        
 @client.event
 async def on_command_error(ctx,error):
     if isinstance(error,commands.MissingPermissions):
@@ -42,6 +47,18 @@ async def on_message(msg):
         if word in msg.content:
             await msg.delete()
 
+    await client.process_commands(msg)
+
+@client.event
+async def on_message(msg):
+
+    try:
+        if msg.mentions[0] == client.user:
+            await msg.channel.send(f"My prefix is ~")
+            await msg.channel.send(f"Use ~Help to get started")
+
+    except:
+        pass
     await client.process_commands(msg)
 
 @client.command()
@@ -105,7 +122,7 @@ async def Mute(ctx,member : discord.Member):
 
     await member.add_roles(muted_role)
 
-    await ctx.send(member.mention + " has been muted. Such a bad boy :(")
+    await ctx.send(member.mention + " has been muted. Such a bad boy ε=( o｀ω′)ノ")
 
 @client.command()
 @commands.has_permissions(kick_members=True)
@@ -114,7 +131,7 @@ async def Unmute(ctx,member : discord.Member):
 
     await member.remove_roles(muted_role)
 
-    await ctx.send(member.mention + " has been unmuted. U behaved well :p")
+    await ctx.send(member.mention + " has been unmuted. U behaved well （＾∀＾●）ﾉｼ")
 
 @client.command()
 @commands.has_permissions(kick_members=True)
@@ -147,7 +164,7 @@ async def Pat(ctx):
 async def Help(ctx):
     em = discord.Embed(title = "Help", description = "Use ~Help <command> for extended Info about that command")
 
-    em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info")
+    em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info,Changeprefix")
     em.add_field(name = "Fun", value = "Pat")
 
 
@@ -227,6 +244,15 @@ async def Info(ctx):
     await ctx.send(embed = em)
 
 @Help.command()
+async def Changeprefix(ctx):
+
+    em = discord.Embed(title = "Changeprefix", description = "Changes the current set prefix",color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Changeprefix <new prefix>")
+
+    await ctx.send(embed = em)
+
+@Help.command()
 async def Pat(ctx):
 
     em = discord.Embed(title = "Pat", description = "No one likes working without headpats :p",color = ctx.author.color)
@@ -234,5 +260,5 @@ async def Pat(ctx):
     em.add_field(name = "***Syntax***", value = "~Pat")
 
     await ctx.send(embed = em)
-  
+
 client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.fD2TUtztXzfultFyKeMuJwJJdGY")

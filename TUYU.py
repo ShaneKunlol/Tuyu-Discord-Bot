@@ -56,13 +56,12 @@ async def on_message(msg):
         if msg.mentions[0] == client.user:
             await msg.channel.send(f"My prefix is ~")
             await msg.channel.send(f"Use ~Help to get started")
-
     except:
         pass
     await client.process_commands(msg)
 
 @client.command()
-async def TUYU(ctx):
+async def Tuyu(ctx):
     await ctx.send("(～￣▽￣)～")
     await ctx.send("Any work?")
 
@@ -164,8 +163,8 @@ async def Pat(ctx):
 async def Help(ctx):
     em = discord.Embed(title = "Help", description = "Use ~Help <command> for extended Info about that command")
 
-    em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info,Changeprefix")
-    em.add_field(name = "Fun", value = "Pat")
+    em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info")
+    em.add_field(name = "Fun", value = "Pat,TUYU")
 
 
     await ctx.send(embed = em)
@@ -242,22 +241,22 @@ async def Info(ctx):
     em.add_field(name = "***Syntax***", value = "~Info <member>")
 
     await ctx.send(embed = em)
-
-@Help.command()
-async def Changeprefix(ctx):
-
-    em = discord.Embed(title = "Changeprefix", description = "Changes the current set prefix",color = ctx.author.color)
-
-    em.add_field(name = "***Syntax***", value = "~Changeprefix <new prefix>")
-
-    await ctx.send(embed = em)
-
+    
 @Help.command()
 async def Pat(ctx):
 
     em = discord.Embed(title = "Pat", description = "No one likes working without headpats :p",color = ctx.author.color)
 
     em.add_field(name = "***Syntax***", value = "~Pat")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Tuyu(ctx):
+
+    em = discord.Embed(title = "Tuyu", description = "Check for my presence by using this command", color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~TUYU")
 
     await ctx.send(embed = em)
 

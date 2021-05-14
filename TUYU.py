@@ -20,9 +20,9 @@ gifs = ['https://tenor.com/view/pat-head-loli-dragon-anime-gif-9920853',
 'https://tenor.com/view/behave-anime-head-pats-head-pat-gif-15882394',
 ]
 
-filtered_words = ["Cunt","Nigger","Fuck","Bitch","Asshole","Motherfucker","cunt","nigger","fuck","bitch","asshole","motherfucker","Madarchod","Chutiya","Bsdk","Bhosadike","Mc"]
+filtered_words = ["Cunt","Nigger","Fuck","Bitch","Asshole","Motherfucker","cunt","nigger","fuck","bitch","asshole","motherfucker"]
 
-client = commands.Bot(command_prefix= "Nya~")
+client = commands.Bot(command_prefix= "~~")
 client.remove_command("help")
 
 @client.event
@@ -54,8 +54,8 @@ async def on_message(msg):
 
     try:
         if msg.mentions[0] == client.user:
-            await msg.channel.send(f"My prefix is Nya~")
-            await msg.channel.send(f"Use Nya~Help to get started")
+            await msg.channel.send(f"My prefix is ~~")
+            await msg.channel.send(f"Use ~~Help to get started")
     except:
         pass
     await client.process_commands(msg)
@@ -174,7 +174,7 @@ async def Kick(ctx):
 
     em = discord.Embed(title = "Kick", description = "Kicks a member from the server",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~kick <member> [reason]")
+    em.add_field(name = "***Syntax***", value = "~~kick <member> [reason]")
 
     await ctx.send(embed = em)
 
@@ -183,7 +183,7 @@ async def Ban(ctx):
 
     em = discord.Embed(title = "Ban", description = "Bans a member from the server",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Ban <member> [reason]")
+    em.add_field(name = "***Syntax***", value = "~~Ban <member> [reason]")
 
     await ctx.send(embed = em)
     
@@ -192,7 +192,7 @@ async def Unban(ctx):
 
     em = discord.Embed(title = "Unban", description = "Unbans a member from the server",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Kick <member>")
+    em.add_field(name = "***Syntax***", value = "~~Kick <member>")
 
     await ctx.send(embed = em)
     
@@ -201,7 +201,7 @@ async def Warn(ctx):
 
     em = discord.Embed(title = "Warn", description = "Warns a member and sends a Message in thier dms",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Warn <member> [reason]")
+    em.add_field(name = "***Syntax***", value = "~~Warn <member> [reason]")
 
     await ctx.send(embed = em)
 
@@ -210,7 +210,7 @@ async def Mute(ctx):
 
     em = discord.Embed(title = "Mute", description = "Mutes a member in the server",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Mute <member>")
+    em.add_field(name = "***Syntax***", value = "~~Mute <member>")
 
     await ctx.send(embed = em)
 
@@ -220,7 +220,7 @@ async def Unmute(ctx):
 
     em = discord.Embed(title = "Unmute", description = "Unmutes a member in the server",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Unmute <member>")
+    em.add_field(name = "***Syntax***", value = "~~Unmute <member>")
 
     await ctx.send(embed = em)
 
@@ -229,7 +229,7 @@ async def Clear(ctx):
 
     em = discord.Embed(title = "Clear", description = "Clears a specified number of messages (It will clear 2 messages if no amount is given)",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Clear <amount>")
+    em.add_field(name = "***Syntax***", value = "~~Clear <amount>")
 
     await ctx.send(embed = em)
 
@@ -238,7 +238,7 @@ async def Info(ctx):
 
     em = discord.Embed(title = "Info", description = "Gives some necessary info about a user",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Info <member>")
+    em.add_field(name = "***Syntax***", value = "~~Info <member>")
 
     await ctx.send(embed = em)
     
@@ -247,7 +247,7 @@ async def Pat(ctx):
 
     em = discord.Embed(title = "Pat", description = "No one likes working without headpats :p",color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Pat")
+    em.add_field(name = "***Syntax***", value = "~~Pat")
 
     await ctx.send(embed = em)
 
@@ -256,7 +256,7 @@ async def Tuyu(ctx):
 
     em = discord.Embed(title = "Tuyu", description = "Check for my presence by using this command", color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "Nya~Tuyu")
+    em.add_field(name = "***Syntax***", value = "~~Tuyu")
 
     await ctx.send(embed = em)
 

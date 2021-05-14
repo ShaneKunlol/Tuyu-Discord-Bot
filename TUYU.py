@@ -161,7 +161,7 @@ async def Pat(ctx):
 
 @client.group(invoke_without_command = True)
 async def Help(ctx):
-    em = discord.Embed(title = "Help", description = "Use Nya~Help <command> for extended Info about that command")
+    em = discord.Embed(title = "Help", description = "Use ~~Help <command> for extended Info about that command")
 
     em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info")
     em.add_field(name = "Fun", value = "Pat,TUYU")

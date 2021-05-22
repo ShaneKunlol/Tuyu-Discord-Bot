@@ -64,6 +64,10 @@ async def on_message(msg):
 async def Tuyu(ctx):
     await ctx.send("(～￣▽￣)～")
     await ctx.send("Any work?")
+ 
+@client.command()
+async def Ping(ctx):
+    await ctx.send(f"My ping is ={client.latency}")
 
 @client.command()
 async def Rule(ctx,*,number):

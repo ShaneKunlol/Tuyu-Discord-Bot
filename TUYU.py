@@ -76,15 +76,11 @@ async def No(ctx):
 @client.command()
 async def Ping(ctx):
     await ctx.send(f"My ping is ={client.latency}")
-    time.sleep(1)
-    await ctx.message.delete()
 
 @client.command()
 async def Rule(ctx,*,number):
     await ctx.send(rules[int(number)-1])
     await ctx.send("Read carefully :p")
-    time.sleep(10)
-    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(manage_messages = True)
@@ -101,8 +97,6 @@ async def Kick(ctx,member: discord.Member,*,reason= "No reason provided"):
     except:
         await ctx.send("ヾ(≧へ≦)〃 ,The Member's dms are closed")
     await member.kick(reason=reason)
-    time.sleep(5)
-    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(ban_members = True)
@@ -112,9 +106,7 @@ async def Ban(ctx,member: discord.Member,*,reason= "No reason provided"):
     except:    
         await ctx.send("(* ￣︿￣) The Member's dms are closed")        
     await member.ban(reason=reason)
-    time.sleep(5)
-    await ctx.message.delete()
-
+ 
 @client.command()
 @commands.has_permissions(ban_members=True)
 async def Unban(ctx,*,member):
@@ -134,8 +126,6 @@ async def Unban(ctx,*,member):
 
             return
     await ctx.send(member+" was not found 〒▽〒")
-    time.sleep(5)
-    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(kick_members=True)
@@ -152,8 +142,6 @@ async def Mute(ctx,member: discord.Member,*,reason= "No reason provided"):
     await member.add_roles(mutedRole, reason=reason)
     await ctx.send(member.mention + " has been muted. Such a bad boy ε=( o｀ω′)ノ")
     await member.send(f"You were muted in the server {guild.name} for {reason}.You are such a bad boy ಠ_ಠ")
-    time.sleep(5)
-    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(kick_members=True)

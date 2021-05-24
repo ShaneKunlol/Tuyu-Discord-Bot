@@ -4,6 +4,7 @@ from discord.colour import Color
 from discord.ext import commands
 from asyncio import sleep
 import random
+import time
 
 f = open("Rules.txt","r")
 rules = f.readlines()
@@ -53,30 +54,44 @@ async def on_message(msg):
     try:
         if msg.mentions[0] == client.user:
             await msg.channel.send(f"My prefix is ~")
-            await msg.channel.send(f"Use ~Help to get started")
+            await msg.channel.send(f"Tip: Use ~Tuyu To start")
     except:
         pass
     await client.process_commands(msg)
 
-@client.command()
+@client.group(invoke_without_command = True)
 async def Tuyu(ctx):
     await ctx.send("(～￣▽￣)～")
     await ctx.send("Any work?")
 
+@Tuyu.command()
+async def Yes(ctx):
+    await ctx.send("What is it?")
+    await ctx.send("If u wanna Know about my commands then use ~Help")
+
+@Tuyu.command()
+async def No(ctx):
+    await ctx.send("Ok no worries :p")
+
 @client.command()
 async def Ping(ctx):
     await ctx.send(f"My ping is ={client.latency}")
+    time.sleep(1)
+    await ctx.message.delete()
 
 @client.command()
 async def Rule(ctx,*,number):
     await ctx.send(rules[int(number)-1])
     await ctx.send("Read carefully :p")
+    time.sleep(10)
+    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(manage_messages = True)
 async def Clear(ctx,amount=2):
     await ctx.channel.purge(limit = amount)
     await ctx.send("ヾ(≧▽≦*)o Successfully removed")
+
     
 @client.command()
 @commands.has_permissions(kick_members = True)
@@ -86,6 +101,8 @@ async def Kick(ctx,member: discord.Member,*,reason= "No reason provided"):
     except:
         await ctx.send("ヾ(≧へ≦)〃 ,The Member's dms are closed")
     await member.kick(reason=reason)
+    time.sleep(5)
+    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(ban_members = True)
@@ -95,6 +112,8 @@ async def Ban(ctx,member: discord.Member,*,reason= "No reason provided"):
     except:    
         await ctx.send("(* ￣︿￣) The Member's dms are closed")        
     await member.ban(reason=reason)
+    time.sleep(5)
+    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(ban_members=True)
@@ -115,24 +134,38 @@ async def Unban(ctx,*,member):
 
             return
     await ctx.send(member+" was not found 〒▽〒")
+    time.sleep(5)
+    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(kick_members=True)
-async def Mute(ctx,member : discord.Member):
-    muted_role = ctx.guild.get_role(835075972893769759)
+async def Mute(ctx,member: discord.Member,*,reason= "No reason provided"):
+    guild = ctx.guild
+    mutedRole = discord.utils.get(guild.roles, name="Muted")
 
-    await member.add_roles(muted_role)
+    if not mutedRole:
+        mutedRole = await guild.create_role(name="Muted")
 
+        for channel in guild.channels:
+            await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
+
+    await member.add_roles(mutedRole, reason=reason)
     await ctx.send(member.mention + " has been muted. Such a bad boy ε=( o｀ω′)ノ")
+    await member.send(f"You were muted in the server {guild.name} for {reason}.You are such a bad boy ಠ_ಠ")
+    time.sleep(5)
+    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def Unmute(ctx,member : discord.Member):
-    muted_role = ctx.guild.get_role(835075972893769759)
+    guild = ctx.guild
+    mutedRole = discord.utils.get(guild.roles, name="Muted")
 
-    await member.remove_roles(muted_role)
-
-    await ctx.send(member.mention + " has been unmuted. U behaved well （＾∀＾●）ﾉｼ")
+    await member.remove_roles(mutedRole)
+    await ctx.send(member.mention + " has been unmuted. You behaved well ヾ(≧▽≦*)o")
+    await member.send(f"You were unmuted in the server {guild.name} after your punishment for the offence you commited.Now go and keep the chat healthy (*^▽^*)")
+    time.sleep(5)
+    await ctx.message.delete()
 
 @client.command()
 @commands.has_permissions(kick_members=True)
@@ -153,6 +186,7 @@ async def Warn(ctx,member: discord.Member,*,reason= "No reason provided"):
     await member.send("￣へ￣ You have been warned,Because "+reason)
     await ctx.send(member.mention + " has been warned. =￣ω￣=")
 
+
 @client.command()
 async def Pat(ctx):
     random_link = random.choice(gifs)
@@ -163,7 +197,7 @@ async def Pat(ctx):
 
 @client.group(invoke_without_command = True)
 async def Help(ctx):
-    em = discord.Embed(title = "Help", description = "Use ~~Help <command> for extended Info about that command")
+    em = discord.Embed(title = "Help", description = "Use ~Help <command> for extended Info about that command")
 
     em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info")
     em.add_field(name = "Fun", value = "Pat,TUYU")
@@ -216,7 +250,6 @@ async def Mute(ctx):
 
     await ctx.send(embed = em)
 
-
 @Help.command()
 async def Unmute(ctx):
 
@@ -247,7 +280,7 @@ async def Info(ctx):
 @Help.command()
 async def Pat(ctx):
 
-    em = discord.Embed(title = "Pat", description = "No one likes working without headpats :p",color = ctx.author.color)
+    em = discord.Embed(title = "Pat", description = "Give me a small headpat for me work :p",color = ctx.author.color)
 
     em.add_field(name = "***Syntax***", value = "~Pat")
 
@@ -256,7 +289,7 @@ async def Pat(ctx):
 @Help.command()
 async def Tuyu(ctx):
 
-    em = discord.Embed(title = "Tuyu", description = "Check for my presence by using this command", color = ctx.author.color)
+    em = discord.Embed(title = "Tuyu", description = "Use this for some chatting with me :))", color = ctx.author.color)
 
     em.add_field(name = "***Syntax***", value = "~Tuyu")
 

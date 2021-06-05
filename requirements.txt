@@ -1,2 +1,4 @@
 discord.py
 asyncio
+PyNaCl
+youtube_dl

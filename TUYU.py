@@ -292,4 +292,4 @@ async def Ping(ctx):
 
     await ctx.send(embed = em)
    
-client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.fD2TUtztXzfultFyKeMuJwJJdGY")
+client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.sQcCzV3I9rUgXp2bi80AymszRxI")

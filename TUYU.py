@@ -345,7 +345,7 @@ async def Play(ctx):
 
     em = discord.Embed(title = "Play", description = "Blast some music by using this command", color = ctx.author.color)
 
-    em.add_field(name = "***Syntax***", value = "~Play")
+    em.add_field(name = "***Syntax***", value = "~Play <url(yt only)> [channel]")
 
     await ctx.send(embed = em)
 

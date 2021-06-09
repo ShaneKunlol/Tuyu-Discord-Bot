@@ -2,9 +2,10 @@ import discord
 from discord import embeds
 from discord.colour import Color
 from discord.ext import commands
-from asyncio import sleep
 import random
 import time
+import youtube_dl
+import os
 
 f = open("Rules.txt","r")
 rules = f.readlines()
@@ -18,9 +19,6 @@ gifs = ['https://tenor.com/view/pat-head-loli-dragon-anime-gif-9920853',
 'https://tenor.com/view/anime-pat-head-blushing-happy-gif-13327143',
 'https://tenor.com/view/behave-anime-head-pats-head-pat-gif-15882394',
 ]
-
-filtered_words = ["Cunt","Nigger","Fuck","Bitch","Asshole","Motherfucker","cunt","nigger","fuck","bitch","asshole","motherfucker"]
-
 client = commands.Bot(command_prefix= "~")
 client.remove_command("help")
 
@@ -39,14 +37,6 @@ async def on_command_error(ctx,error):
         await ctx.message.delete()
     else:
         raise error
-
-@client.event
-async def on_message(msg):
-    for word in filtered_words:
-        if word in msg.content:
-            await msg.delete()
-
-    await client.process_commands(msg)
 
 @client.event
 async def on_message(msg):
@@ -174,7 +164,6 @@ async def Warn(ctx,member: discord.Member,*,reason= "No reason provided"):
     await member.send("￣へ￣ You have been warned,Because "+reason)
     await ctx.send(member.mention + " has been warned. =￣ω￣=")
 
-
 @client.command()
 async def Pat(ctx):
     random_link = random.choice(gifs)
@@ -183,13 +172,72 @@ async def Pat(ctx):
 
     await ctx.send("Nya~ Thx master")
 
+@client.command()
+async def Play(ctx, url : str,channel):
+    song_there = os.path.isfile("song.mp3")
+    try:
+        if song_there:
+            os.remove("song.mp3")
+    except PermissionError:
+        await ctx.send("Wait for the current playing music to end or use the 'stop' command")
+        return
+
+    voiceChannel = discord.utils.get(ctx.guild.voice_channels, name=channel)
+    await voiceChannel.connect()
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
+    for file in os.listdir("./"):
+        if file.endswith(".mp3"):
+            os.rename(file, "song.mp3")
+    voice.play(discord.FFmpegPCMAudio("song.mp3"))
+
+@client.command()
+async def Leave(ctx):
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+    if voice.is_connected():
+        await voice.disconnect()
+    else:
+        await ctx.send("The bot is not connected to a voice channel.")
+
+@client.command()
+async def Pause(ctx):
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+    if voice.is_playing():
+        voice.pause()
+    else:
+        await ctx.send("Currently no audio is playing.")
+
+@client.command()
+async def Resume(ctx):
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+    if voice.is_paused():
+        voice.resume()
+    else:
+        await ctx.send("The audio is not paused.")
+
+@client.command()
+async def Stop(ctx):
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+    voice.stop()
+
 @client.group(invoke_without_command = True)
 async def Help(ctx):
     em = discord.Embed(title = "Help", description = "Use ~Help <command> for extended Info about that command")
 
     em.add_field(name = "Moderation", value = "Kick,Ban,Unban,Warn,Mute,Unmute,Clear,Info")
-    em.add_field(name = "Fun", value = "Pat,TUYU")
+    em.add_field(name = "Fun", value = "Pat,Tuyu")
     em.add_field(name = "Client Info", value = "Ping")
+    em.add_field(name = "Music", value = "Play,Pause,Resume,Stop,Leave")
 
     await ctx.send(embed = em)
 
@@ -291,5 +339,42 @@ async def Ping(ctx):
     em.add_field(name = "***Syntax***", value = "~Ping")
 
     await ctx.send(embed = em)
+
+@Help.command()
+async def Play(ctx):
+
+    em = discord.Embed(title = "Play", description = "Blast some music by using this command", color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Play")
+
+    await ctx.send(embed = em)
+
+@Help.command()
+async def Pause(ctx):
+
+    em = discord.Embed(title = "Pause", description = "Pause the current track by using this command", color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Pause")
+
+@Help.command()
+async def Resume(ctx):
+
+    em = discord.Embed(title = "Resume", description = "Play the paused track by using this command", color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Resume")
+
+@Help.command()
+async def Stop(ctx):
+
+    em = discord.Embed(title = "Stop", description = "Stop the current playing track by using this command", color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Stop")
+
+@Help.command()
+async def Leave(ctx):
+
+    em = discord.Embed(title = "Leave", description = "Disconnect the bot by using this command", color = ctx.author.color)
+
+    em.add_field(name = "***Syntax***", value = "~Leave")
    
 client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.sQcCzV3I9rUgXp2bi80AymszRxI")

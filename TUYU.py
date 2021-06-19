@@ -173,6 +173,10 @@ async def Pat(ctx):
     await ctx.send("Nya~ Thx master")
 
 @client.command()
+async def Invite(ctx):
+    await ctx.send(f"https://discord.com/api/oauth2/authorize?client_id=855489705356820512&permissions=8&scope=bot")
+    
+@client.command()
 async def Play(ctx, url : str,channel):
     song_there = os.path.isfile("song.mp3")
     try:

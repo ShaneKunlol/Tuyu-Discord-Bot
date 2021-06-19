@@ -377,4 +377,4 @@ async def Leave(ctx):
 
     em.add_field(name = "***Syntax***", value = "~Leave")
    
-client.run("ODQxODc2MDc5ODk4Nzg3ODgw.YJtIMg.sQcCzV3I9rUgXp2bi80AymszRxI")
+client.run("ODU1NDg5NzA1MzU2ODIwNTEy.YMzO3w.7EqQuutI0v2qZy9deJkc6acW8FM")
